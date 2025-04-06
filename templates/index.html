@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Synchronization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            font-size: 3em;
+            color: #333;
+        }
+        p {
+            font-size: 1.5em;
+            color: #666;
+        }
+        .source {
+            font-weight: bold;
+            color: #3a8dff;
+        }
+        .status {
+            font-weight: bold;
+            color: #ff4500;
+        }
+        .available {
+            color: green;
+        }
+        .not-available {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Current Time: </h1>
+    <p id="time"></p>
+    <p><span class="source" id="source"></span></p>
+    <h2>Available Sources (Sorted by Priority):</h2>
+    <div id="sources"></div>
+    <p>Time updates every second...</p>
+
+    <script>
+        // Function to fetch time and source status from the server every second
+        function fetchTime() {
+            fetch('/get_time')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('time').textContent = data.time;
+                    document.getElementById('source').textContent = 'Source: ' + data.source;
+
+                    // Display available sources and their statuses, sorted by priority
+                    const sourcesDiv = document.getElementById('sources');
+                    sourcesDiv.innerHTML = ''; // Clear previous list
+
+                    // Sort sources based on the TIME_PRIORITY order
+                    const sortedSources = data.sources;
+                    const priorityOrder = ['GNSS', 'PTP', '5G']; // Priority list (the order in backend)
+
+                    priorityOrder.forEach(source => {
+                        const sourceData = sortedSources[source];
+                        if (sourceData) {
+                            const sourceDiv = document.createElement('div');
+                            sourceDiv.innerHTML = `<strong>${source}:</strong> 
+                                <span class="${sourceData.status === 'Available' ? 'available' : 'not-available'}">
+                                ${sourceData.status}</span>`;
+                            sourcesDiv.appendChild(sourceDiv);
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching time:', error));
+        }
+
+        // Start fetching time every second
+        setInterval(fetchTime, 1000);
+
+        // Fetch time immediately upon page load
+        fetchTime();
+    </script>
+</body>
+</html>
