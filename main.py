@@ -1,7 +1,10 @@
+# This is the main Flask application that serves the web interface and handles time retrieval from different sources.
 from flask import Flask, render_template, jsonify
 import time
 from datetime import datetime
 from threading import Thread
+
+# Importing the time retrieval functions from their respective modules
 from gnss_time import get_gnss_time
 from ptp_time import get_ptp_time
 from network_time import get_network_time
@@ -12,22 +15,26 @@ app = Flask(__name__)
 # This will store the most accurate time and which source it came from
 current_time = {"time": "", "source": "", "sources": {}}
 
+
 def get_time_by_source(source):
     if source == "GNSS":
         result = get_gnss_time()
         if isinstance(result, str):  # GNSS failure case
             return None
         return result, "GNSS"
+    
     elif source == "PTP":
         result = get_ptp_time()
         if SIMULATE_PTP_NOISE or not result:  # PTP failure case
             return None
         return result, "PTP"
+    
     elif source == "5G":
         result = get_network_time()
         if SIMULATE_NETWORK_JITTER or not result:  # Network failure case
             return None
         return result, "5G"
+    
     return None
 
 def select_best_time():
@@ -54,6 +61,7 @@ def update_time():
         current_time["time"] = best_time
         current_time["source"] = source
         current_time["sources"] = sources
+        # print(f"Current time: {current_time['time']} from {current_time['source']}")
         time.sleep(1)
 
 @app.route('/')
