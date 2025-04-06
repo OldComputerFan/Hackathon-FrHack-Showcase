@@ -66,11 +66,16 @@ def update_time():
     global current_time
     while True:
         best_time, source, sources = select_best_time()
-        current_time["time"] = best_time
+        # Check if best_time is a datetime object and convert it to ISO format
+        if isinstance(best_time, datetime):
+            formatted_time = best_time.isoformat()
+        else:
+            formatted_time = best_time  # already a string, e.g. an error message
+
+        current_time["time"] = formatted_time
         current_time["source"] = source
         current_time["sources"] = sources
-        # print(f"Current time: {current_time['time']} from {current_time['source']}")
-        time.sleep(1)
+        time.sleep(0.01)
 
 @app.route('/')
 def index():
