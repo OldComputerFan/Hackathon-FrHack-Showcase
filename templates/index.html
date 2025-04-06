@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris Legal Time</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #4CAF50; }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Paris Legal Time Calculator</h1>
+    
+    <p><strong>Calculated Actual Time:</strong> {{ actual_time }}</p>
+    <p><strong>Current PC Time:</strong> {{ current_pc_time }}</p>
+    <p><strong>Time Difference:</strong> {{ time_diff }}</p>
+
+    <form action="/update" method="get">
+        <button class="button" type="submit">Update File</button>
+    </form>
+
+</body>
+</html>
