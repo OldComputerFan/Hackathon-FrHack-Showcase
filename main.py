@@ -5,10 +5,10 @@ from datetime import datetime
 from threading import Thread
 
 # Importing the time retrieval functions from their respective modules
-from gnss_time import get_gnss_time
+from galileo_time import get_galileo_time
 from ptp_time import get_ptp_time
 from network_time import get_network_time
-from config import SIMULATE_GNSS_FAILURE, SIMULATE_PTP_NOISE, SIMULATE_NETWORK_JITTER, TIME_PRIORITY, SIMULATE_GPS_FAILURE
+from config import SIMULATE_GALILEO_FAILURE, SIMULATE_PTP_NOISE, SIMULATE_NETWORK_JITTER, TIME_PRIORITY, SIMULATE_GPS_FAILURE
 from gps import get_gps_time
 
 app = Flask(__name__)
@@ -18,11 +18,11 @@ current_time = {"time": "", "source": "", "sources": {}}
 
 
 def get_time_by_source(source):
-    if source == "GNSS":
-        result = get_gnss_time()
-        if isinstance(result, str):  # GNSS failure case
+    if source == "GALILEO":
+        result = get_galileo_time()
+        if isinstance(result, str):  # GALILEO failure case
             return None
-        return result, "GNSS"
+        return result, "GALILEO"
     
     elif source == "PTP":
         result = get_ptp_time()
