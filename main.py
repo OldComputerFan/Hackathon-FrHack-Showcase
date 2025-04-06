@@ -8,7 +8,8 @@ from threading import Thread
 from gnss_time import get_gnss_time
 from ptp_time import get_ptp_time
 from network_time import get_network_time
-from config import SIMULATE_GNSS_FAILURE, SIMULATE_PTP_NOISE, SIMULATE_NETWORK_JITTER, TIME_PRIORITY
+from config import SIMULATE_GNSS_FAILURE, SIMULATE_PTP_NOISE, SIMULATE_NETWORK_JITTER, TIME_PRIORITY, SIMULATE_GPS_FAILURE
+from gps import get_gps_time
 
 app = Flask(__name__)
 
@@ -34,6 +35,13 @@ def get_time_by_source(source):
         if SIMULATE_NETWORK_JITTER or not result:  # Network failure case
             return None
         return result, "5G"
+    
+    elif source == "GPS":
+        result = get_gps_time()
+        if SIMULATE_GPS_FAILURE or not result:
+            return None
+        return result, "GPS"
+
     
     return None
 

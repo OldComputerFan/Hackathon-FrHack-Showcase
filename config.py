@@ -1,7 +1,7 @@
 # Configuration file for time synchronization
 
 # List of time sources in order of priority
-TIME_PRIORITY = ["GNSS", "PTP", "5G"]  # 5G is now the network source
+TIME_PRIORITY = ["PTP", "GNSS", "5G", "GPS"]  # 5G is now the network source
 
 # Simulation flags
 SIMULATE_GNSS_FAILURE = False

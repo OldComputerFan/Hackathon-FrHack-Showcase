@@ -58,7 +58,7 @@
 
                     // Sort sources based on the TIME_PRIORITY order
                     const sortedSources = data.sources;
-                    const priorityOrder = ['GNSS', 'PTP', '5G']; // Priority list (the order in backend)
+                    const priorityOrder = ['PTP', 'GNSS', '5G', 'GPS']; // Priority list (the order in backend)
 
                     priorityOrder.forEach(source => {
                         const sourceData = sortedSources[source];
