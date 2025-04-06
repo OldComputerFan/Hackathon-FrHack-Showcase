@@ -63,13 +63,17 @@
                     priorityOrder.forEach(source => {
                         const sourceData = sortedSources[source];
                         if (sourceData) {
+                            const timeDisplay = sourceData.time ? new Date(sourceData.time).toLocaleString() : 'N/A';
+
                             const sourceDiv = document.createElement('div');
                             sourceDiv.innerHTML = `<strong>${source}:</strong> 
                                 <span class="${sourceData.status === 'Available' ? 'available' : 'not-available'}">
-                                ${sourceData.status}</span>`;
+                                ${sourceData.status}</span> 
+                                | Time: <span>${timeDisplay}</span>`;
                             sourcesDiv.appendChild(sourceDiv);
                         }
                     });
+
                 })
                 .catch(error => console.error('Error fetching time:', error));
         }
