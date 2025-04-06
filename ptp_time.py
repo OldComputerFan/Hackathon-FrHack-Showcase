@@ -5,9 +5,9 @@ import random
 def get_ptp_time():
     try:
         now = datetime.now()
-        if SIMULATE_PTP_NOISE:
-            noise = timedelta(milliseconds=random.uniform(-50, 50))
-            return now + noise
+        # if SIMULATE_PTP_NOISE:
+        #     noise = timedelta(milliseconds=random.uniform(-50, 50))
+        #     return now + noise
         return now
     except Exception:
         return None
