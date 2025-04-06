@@ -16,7 +16,7 @@ The system fetches the time from the most accurate source available, smoothly tr
 - **JavaScript** (Fetch API) for real-time updates and smooth transitions.
 - **HTML/CSS** for the frontend interface.
 
-## Requiirements
+## Requirements
 - Python 3
 - ntplib for Python
 - Flask
