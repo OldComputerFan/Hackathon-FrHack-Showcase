@@ -20,7 +20,7 @@ current_time = {"time": "", "source": "", "sources": {}}
 def get_time_by_source(source):
     if source == "GALILEO":
         result = get_galileo_time()
-        if isinstance(result, str):  # GALILEO failure case
+        if SIMULATE_GALILEO_FAILURE or not result:  # GALILEO failure case
             return None
         return result, "GALILEO"
     

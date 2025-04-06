@@ -7,8 +7,9 @@ def get_galileo_time():
         return "GALILEO error: Simulated interference"
     try:
         client = ntplib.NTPClient()
-        response = client.request('pool.ntp.org', version=3, timeout=1)
-        return datetime.fromtimestamp(response.tx_time)
+        response = datetime.now()
+        # client.request('pool.ntp.org', version=3, timeout=1)
+        return datetime.fromtimestamp(response.timestamp())
     except Exception as e:
         return f"GALILEO error: {e}"
         # Fallback to error message if any error occurs
