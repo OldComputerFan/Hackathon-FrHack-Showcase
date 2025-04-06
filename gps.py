@@ -1,6 +1,6 @@
 import ntplib
 from datetime import datetime, timedelta
-from config import SIMULATE_GNSS_FAILURE
+from config import SIMULATE_GPS_FAILURE
 
 def get_gps_time():
     if SIMULATE_GPS_FAILURE:

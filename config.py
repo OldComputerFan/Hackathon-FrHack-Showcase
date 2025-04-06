@@ -7,3 +7,4 @@ TIME_PRIORITY = ["GNSS", "PTP", "5G"]  # 5G is now the network source
 SIMULATE_GNSS_FAILURE = False
 SIMULATE_PTP_NOISE = False
 SIMULATE_NETWORK_JITTER = False
+SIMULATE_GPS_FAILURE = False  # For GPS simulation
