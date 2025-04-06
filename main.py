@@ -43,6 +43,7 @@ def select_best_time():
     for source in TIME_PRIORITY:
         if sources[source]["status"] == "Available":
             return sources[source]["time"], source, sources
+        
     return datetime.utcnow(), "Fallback", sources
 
 # Update time every second
